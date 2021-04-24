@@ -48,8 +48,7 @@ controller.getVehicleAvailable = ( req, res, next) => {
 };
 
 controller.insertVehicle = async (req, res) => {
-  // data
-  const data = {
+  const {
     placa,
     matricula,
     r_trailer,
@@ -57,31 +56,41 @@ controller.insertVehicle = async (req, res) => {
     fecha_soat,
     fecha_poliza,
     modelo,
+    fecha_tecnomecanica,
     id_marca,
     id_tipo,
     id_estado,
   } = req.body;
-  // create
-  let sql = "INSERT INTO tbl_vehiculos SET ?";
-  conn.query(sql, data,(err, results) => {
-    if(err) throw err;
-    return data;
+  const data = await Conduct.create({
+    placa:placa,
+    matricula:matricula,
+    r_trailer:r_trailer,
+    capacidad:capacidad,
+    fecha_soat:fecha_soat,
+    fecha_poliza:fecha_poliza,
+    modelo:modelo,
+    fecha_tecnomecanica:fecha_tecnomecanica,
+    id_marca:id_marca,
+    id_tipo:id_tipo,
+    id_estado:id_estado,
   });
-  console.log(data)
+  console
+    .log(data)
     .then(function (data) {
       return data;
     })
     .catch((error) => {
-      console.log("Error" + error);
+      console.log(error);
       return error;
     });
-  // return res
   res.status(200).json({
     success: true,
-    message: "Vehículo almacenado exitosamente",
+    message: "Guardo exitosamente en la base de datos",
     data: data,
   });
+  console.log(data);
 };
+
 
 controller.editVehicle = async (req,res) => {
   const { id_vehiculo } = req.params;
@@ -124,6 +133,7 @@ controller.vehicleEdit = async (req,res) => {
     fecha_soat,
     fecha_poliza,
     modelo,
+    fecha_tecnomecanica,
     id_marca,
     id_tipo,
     id_estado
@@ -137,6 +147,7 @@ controller.vehicleEdit = async (req,res) => {
     fecha_soat:fecha_soat,
     fecha_poliza:fecha_poliza,
     modelo:modelo,
+    fecha_tecnomecanica:fecha_tecnomecanica,
     id_marca:id_marca,
     id_tipo:id_tipo,
     id_estado:id_estado,
