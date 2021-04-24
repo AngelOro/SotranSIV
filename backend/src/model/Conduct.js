@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+var Vehiculos = require("./Vehicle")
 var sequelize = require('./database');
 
 var nameTable = 'tbl_conductores';
@@ -15,6 +16,16 @@ var conduct = sequelize.define(nameTable, {
     telefono_contacto:Sequelize.STRING,
     fecha_nacimiento:Sequelize.DATE,
     licencia_conduccion:Sequelize.STRING,
+    fecha_curso_seguridad:Sequelize.DATE, 
+    fecha_curso_industrial:Sequelize.DATE, 
+    examenes_medicos:Sequelize.DATE, 
+    id_vehiculo: {
+        type: Sequelize.INTEGER,
+        reference: {
+          model: Vehiculos,
+          key: "id_vehiculo",
+        },
+      }
 }, {
     timestamps: false,
 });
