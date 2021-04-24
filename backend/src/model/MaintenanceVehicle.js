@@ -12,7 +12,7 @@ var MaintenanceVehicle = sequelize.define(
       primaryKey: true,
       autoIncrement: false,
     },
-    id_vehiculo: {
+    vehiculo: {
         type: Sequelize.INTEGER,
         reference: {
           model: Vehiculos,
@@ -20,7 +20,7 @@ var MaintenanceVehicle = sequelize.define(
         },
       },
     fecha_realizado: Sequelize.DATE,
-    valor_mantenimiento: Sequelize.DOUBLE,
+    valor_gasto: Sequelize.DOUBLE,
     descripcion: Sequelize.STRING,
     codigo_factura: Sequelize.STRING,
     nombre_empresa: Sequelize.STRING
