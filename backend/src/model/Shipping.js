@@ -2,31 +2,46 @@ const Sequelize = require("sequelize");
 var sequelize = require("./database");
 var Vehicle = require("./Vehicle");
 var Estados = require("./Estados");
+var Conduct = require("./Conduct");
 const City = require("./City");
 
-var nameTable = "tbl_envios";
+var nameTable = "tbl_rutas";
 
 
 var Envios = sequelize.define(nameTable, {
 
-    id_envio:{
+    id_rutas:{
         type:Sequelize.INTEGER,
         primaryKey: true,
 
     },
-    codigo_envio: Sequelize.STRING,
+    codigo_ruta: Sequelize.STRING,
     nombre_producto: Sequelize.STRING,
     referencia: Sequelize.STRING,
     cantidad: Sequelize.FLOAT,
     fecha_inicio: Sequelize.DATE,
     fecha_fin: Sequelize.DATE,
-    valor_envio: Sequelize.STRING,
+    flete: Sequelize.STRING,
     id_vehiculo: {
       type: Sequelize.INTEGER,
       // This is a reference to another model
       references: {
         model: Vehicle,
         key: "id_vehiculo",
+      },
+    },
+    id_conductor: {
+      type: Sequelize.STRING,
+      references: {
+        model: Conduct,
+        key: "identificacion"
+      },
+    },
+    id_estado: {
+      type: Sequelize.INTEGER,
+      reference: {
+        model: Estados,
+        key: "id_estado",
       },
     },
     id_origen: {
@@ -42,14 +57,7 @@ var Envios = sequelize.define(nameTable, {
         model: City,
         key: "id_ciudad",
       },
-    },
-    id_estado: {
-      type: Sequelize.INTEGER,
-      reference: {
-        model: Estados,
-        key: "id_estado",
-      },
-    },
+    },    
   },
   {
     timestamps: false,

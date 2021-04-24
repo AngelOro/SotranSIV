@@ -20,19 +20,20 @@ class ShippingContent extends Component {
       visible: false,
       shippingBackup: {},
       textBuscar: "",
-      id_envio: "",
-      codigo_envio: "",
+      id_rutas: "",
+      codigo_ruta: "",
       nombre_producto: "",
       referencia: "",
       cantidad: "",
       fecha_inicio: "",
       fecha_fin: "",
       placa: "",
-      valor_envio: "",
+      flete: "",
       ciudad_origen: "",
       ciudad_destino: "",
       estado: "",
       select_vehicle: 0,
+      select_conduct: 0,
       select_ciudad_origen: 0,
       select_ciudad_destino: 0,
       visible_actualizar: true,
@@ -57,14 +58,14 @@ class ShippingContent extends Component {
     });
   }
 
-  openModalEditar(id_envio) {
+  openModalEditar(id_rutas) {
     this.setState({
       visible: true,
       visible_actualizar: false,
       visible_registrar:true,
     })
     //id_vehiculo = this.props.match.params.id_vehiculo;
-    const url = "http://localhost:3001/Shipping/editShipping/"+id_envio
+    const url = "http://localhost:3001/Shipping/editShipping/"+id_rutas
     Axios.get(url)
     .then(res=>{
       if (res.data.success) {
@@ -72,15 +73,16 @@ class ShippingContent extends Component {
         console.log(data);
         this.setState({
           shippingEdit:data,
-              id_envio:data.id_envio,
-              codigo_envio: data.codigo_envio,
+              id_rutas:data.id_rutas,
+              codigo_ruta: data.codigo_ruta,
               nombre_producto: data.nombre_producto,
               referencia: data.referencia, 
               cantidad: data.cantidad,
               fecha_inicio: data.fecha_inicio,
               fecha_fin: data.fecha_fin,
-              valor_envio: data.valor_envio,
+              flete: data.flete,
               id_vehiculo: data.select_vehicle,
+              id_conductor: data.select_conductor,
               id_origen:data.select_ciudad_origen,
               id_destino:data.select_ciudad_destino
          
@@ -198,14 +200,15 @@ class ShippingContent extends Component {
     //const baseUrl = "https://sotransiv-app.herokuapp.com/Vehicle/newVehicle"
     const baseUrl = "http://localhost:3001/Shipping/newShipping"
             const datapost = {
-              codigo_envio: this.state.codigo_envio,
+              codigo_ruta: this.state.codigo_ruta,
               nombre_producto: this.state.nombre_producto,
               referencia: this.state.referencia, 
               cantidad: this.state.cantidad,
               fecha_inicio: this.state.fecha_inicio,
               fecha_fin: this.state.fecha_fin,
-              valor_envio: this.state.valor_envio,
+              flete: this.state.flete,
               id_vehiculo: this.state.select_vehicle,
+              id_conductor: this.state.select_conduct,
               id_origen:this.state.select_ciudad_origen,
               id_destino:this.state.select_ciudad_destino
                 
@@ -245,13 +248,13 @@ class ShippingContent extends Component {
     })
   }
 
-  sendDelete(id_envio)
+  sendDelete(id_rutas)
   {
     // url de backend
     const baseUrl = "http://localhost:3001/Shipping/deleteShipping"    // parameter data post
     // network
     Axios.post(baseUrl,{
-      id_envio:id_envio
+      id_rutas:id_rutas
     })
     .then(response =>{
       if (response.data.success) {
@@ -271,20 +274,21 @@ class ShippingContent extends Component {
   
   sendUpdate(){
     //  get parameter id
-    let id_envio = this.state.id_envio;
-    console.log(id_envio);
+    let id_rutas = this.state.id_rutas;
+    console.log(id_rutas);
     // url de backend
-    const baseUrl = "http://localhost:3001/Shipping/shippingEdit/"+id_envio
+    const baseUrl = "http://localhost:3001/Shipping/shippingEdit/"+id_rutas
     // parametros de datos post
     const datapost = {
-      codigo_envio: this.state.codigo_envio,
+      codigo_ruta: this.state.codigo_ruta,
       nombre_producto: this.state.nombre_producto,
       referencia: this.state.referencia, 
       cantidad: this.state.cantidad,
       fecha_inicio: this.state.fecha_inicio,
       fecha_fin: this.state.fecha_fin,
-      valor_envio: this.state.valor_envio,
+      flete: this.state.flete,
       id_vehiculo: this.state.select_vehicle,
+      id_conductor: this.state.select_conduct,
       id_origen:this.state.select_ciudad_origen,
       id_destino:this.state.select_ciudad_destino
     }
@@ -307,17 +311,18 @@ class ShippingContent extends Component {
 
   render() {
     const {
-      id_envio,
-      codigo_envio,
+      id_rutas,
+      codigo_ruta,
       nombre_producto,
       referencia,
       cantidad,
-      valor_envio,
+      flete,
       fecha_inicio,
       fecha_fin,
       id_vehiculo,
       ciudad_destino,
       ciudad_origen,
+      select_conduct,
       select_ciudad_destino,
       select_ciudad_origen,
       select_vehicle,
@@ -388,7 +393,7 @@ class ShippingContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.codigo_envio}
+                        value={this.state.codigo_ruta}
                         onChange={(value) =>
                           this.setState({
                             codigo_envio: value.target.value,
@@ -401,7 +406,7 @@ class ShippingContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.valor_envio}
+                        value={this.state.flete}
                         onChange={(value) =>
                           this.setState({
                             valor_envio: value.target.value,
@@ -577,7 +582,7 @@ class ShippingContent extends Component {
             <tr>
               <th className="th-shipping" scope="col">Codigo Envio</th>
               <th className="th-shipping" scope="col">Carga</th>
-              <th className="th-shipping" scope="col">Valor Envio</th>
+              <th className="th-shipping" scope="col">Flete</th>
               <th className="th-shipping" scope="col">Vehiculo Asignado</th>
               <th className="th-shipping" scope="col">Ciudad Origen</th>
               <th className="th-shipping" scope="col">Ciudad Destino</th>
@@ -590,9 +595,9 @@ class ShippingContent extends Component {
             {this.state.shippingData.map((data) => (
               <tr className="tr-Shipping">
 
-                <td scope="col">{data.codigo_envio}</td>
+                <td scope="col">{data.codigo_ruta}</td>
                 <td>{data.nombre_producto}</td>
-                <td>{data.valor_envio}</td>
+                <td>{data.flete}</td>
                 <td>{data.placa}</td>
                 <td>{data.ciudad_origen}</td>
                 <td>{data.ciudad_destino}</td>
@@ -604,7 +609,7 @@ class ShippingContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-asignar"
                     value="Open"
-                    onClick={() => this.openModalEditar(data.id_envio)}
+                    onClick={() => this.openModalEditar(data.id_rutas)}
                   >
                     Editar
                   </button>
@@ -615,7 +620,7 @@ class ShippingContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-eliminar"
                     value="Open"
-                    onClick={()=>this.onDelete(data.id_envio)}
+                    onClick={()=>this.onDelete(data.id_rutas)}
                   >
                     Eliminar
                   </button>
