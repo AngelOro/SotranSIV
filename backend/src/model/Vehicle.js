@@ -21,6 +21,7 @@ var Vehiculos = sequelize.define(
     fecha_soat: Sequelize.DATE,
     fecha_poliza: Sequelize.DATE,
     modelo: Sequelize.STRING,
+    fecha_tecnomecanica: Sequelize.DATE,
     id_marca: {
       type: Sequelize.INTEGER,
       // This is a reference to another model

@@ -18,7 +18,7 @@ const mysql = require("mysql");
       host: "localhost",
       user: "sotransiv",
       password: "1234",
-      database: "Sotransiv",
+      database: "sotransiv",
       port: 3306,
     },
   );
