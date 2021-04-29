@@ -256,6 +256,7 @@ class ConductorContent extends Component {
         });
       });
   }
+  
   componentDidMount() {
     this._fetchData();
     this._fetchVehicleAvailable();
@@ -314,7 +315,7 @@ class ConductorContent extends Component {
     if (this.state.loading) {
       return (
         <div className="App">
-          <h1>Cargando...</h1>
+          <h1>Cargandobfhdjnkmlsndbvbduxjnksdvxjkxbhjs</h1>
         </div>
       );
     }

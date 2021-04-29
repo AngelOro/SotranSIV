@@ -233,3 +233,6 @@ VALUES (1,'co1234','cemento','f32',25,'1995-01-29','2000-01-29',5000, 1,"1040759
 
 insert into tbl_rutas (id_rutas, codigo_ruta, nombre_producto, referencia, cantidad, fecha_inicio, fecha_fin, flete, id_vehiculo, id_conductor , id_estado, id_origen, id_destino)
 values (2,'co1234','cemento','f32',25,'1995-01-29','2000-01-29',5000, 1,"3213432345",2,2,1);
+
+
+select id_rol from tbl_usuarios where usuario = "esteban2021" and clave = "1234567";
