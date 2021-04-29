@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Swith, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import MainLogin from '../components/MainLogin';
+import MainLogin from '../pages/MainLogin';
 import Main from '../pages/Main.jsx';
 import Shipping from '../pages/Shipping';
 import Report from '../pages/Report';
