@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "../styles/VehicleContent.css";
+import "../../styles/VehicleContent.css";
 import Axios from "axios";
 import Modal from "react-awesome-modal";
-import foto from "../images/icono.png";
+import foto from "../../images/icono.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import ConductorContent from '../components/ConductorContent';
-import MainContent from '../components/MainContent';
+import ConductorContent from '../../components/conduct/ConductorContent';
+import MainContent from '../../components/globalComponents/MainContent';
 
 
 

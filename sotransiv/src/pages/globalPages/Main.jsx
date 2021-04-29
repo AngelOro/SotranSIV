@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainContent from '../components/MainContent';
+import MainContent from '../../components/globalComponents/MainContent';
 // import '../styles/Main.css';
 import {link,Link} from 'react-router-dom';
 

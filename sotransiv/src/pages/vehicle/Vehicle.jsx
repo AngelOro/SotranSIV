@@ -1,6 +1,6 @@
 import React from 'react';
-import VehicleContent from '../components/VehicleContent';
-import MainContent from '../components/MainContent';
+import VehicleContent from '../../components/vehicle/VehicleContent';
+import MainContent from '../../components/globalComponents/MainContent';
 
 
 

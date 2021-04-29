@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Swith, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import MainLogin from '../pages/MainLogin';
-import Main from '../pages/Main.jsx';
-import Shipping from '../pages/Shipping';
-import Report from '../pages/Report';
-import Conduct from '../pages/Conduct';
-import Vehicle from '../pages/Vehicle';
-import RegisterConduct from '../pages/RegisterConduct'
-import RegisterVehicle from '../pages/RegisterVehicle';
-import RegisterShipping from '../pages/RegisterShipping';
+import MainLogin from '../pages/login/MainLogin';
+import Main from '../pages/globalPages/Main';
+import Shipping from '../pages/route/Shipping';
+import Report from '../pages/report/Report';
+import Conduct from '../pages/conduct/Conduct';
+import Vehicle from '../pages/vehicle/Vehicle';
+import RegisterConduct from '../pages/conduct/RegisterConduct'
+import RegisterVehicle from '../pages/vehicle/RegisterVehicle';
+import RegisterShipping from '../pages/route/RegisterShipping';
 //import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 
 

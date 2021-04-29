@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLoginInitial from '../components/MainLogin';
+import MainLoginInitial from '../../components/login/MainLogin';
 
 
 

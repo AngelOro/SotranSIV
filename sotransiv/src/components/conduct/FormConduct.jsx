@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/FormRegister.css";
+import "../../styles/FormRegister.css";
 
 const FormConduct = (props) => {
   return (

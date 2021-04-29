@@ -1,5 +1,5 @@
 import React from 'react';
-import FormConduct from '../components/FormConduct';
+import FormConduct from '../../components/conduct/FormConduct';
 
 function RegisterConduct(){
     return(

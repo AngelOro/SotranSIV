@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "../styles/VehicleContent.css";
+import "../../styles/VehicleContent.css";
 import Axios from "axios";
 import Modal from "react-awesome-modal";
-import "../styles/FormRegister.css";
+import "../../styles/FormRegister.css";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 class ConductorContent extends Component {

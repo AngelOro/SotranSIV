@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/VehicleContent.css";
+import "../../styles/VehicleContent.css";
 import axios from "axios";
 
 class userContent extends Component {

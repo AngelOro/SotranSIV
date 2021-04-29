@@ -1,5 +1,5 @@
 import React from 'react';
-import FormShipping from '../components/FormShipping';
+import FormShipping from '../../components/route/FormShipping';
 
 function RegisterShipping(){
     return(

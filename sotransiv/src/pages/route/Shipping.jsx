@@ -1,6 +1,6 @@
 import React from 'react';
-import ShippingContent from '../components/ShippingContent';
-import MainContent from '../components/MainContent';
+import ShippingContent from '../../components/route/ShippingContent';
+import MainContent from '../../components/globalComponents/MainContent';
 
 
 

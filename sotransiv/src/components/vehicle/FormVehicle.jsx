@@ -1,7 +1,7 @@
 ﻿
 import React, { Component } from "react";
-import foto from "../images/icono.png";
-import "../styles/FormRegister.css";
+import foto from "../../images/icono.png";
+import "../../styles/FormRegister.css";
 import Axios from "axios";
 import { link, Link } from "react-router-dom";
 

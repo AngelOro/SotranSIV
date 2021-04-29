@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import user from "../images/user.jpg";
-import "../styles/Sidebar.css";
+import user from "../../images/user.jpg";
+import "../../styles/Sidebar.css";
 import { link, Link } from "react-router-dom";
 
 function Navbar() {

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import logo from '../images/Logo_color.png';
-import '../styles/Login.css'
+import logo from '../../images/Logo_color.png';
+import '../../styles/Login.css'
 
 const cookies = new Cookies();
 

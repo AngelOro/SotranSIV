@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { link, Link } from "react-router-dom";
-import logo from "../images/LogoWhite.png";
-import user from "../images/user.jpg";
-import "../styles/Sidebar.css";
-import Navbar from './Navbar';
+import logo from "../../images/LogoWhite.png";
+import user from "../../images/user.jpg";
+import "../../styles/Sidebar.css";
+import Navbar from '../globalComponents/Navbar';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 

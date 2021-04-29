@@ -1,5 +1,5 @@
 import React from 'react';
-import FormVehiculo from '../components/FormVehicle';
+import FormVehiculo from '../../components/vehicle/FormVehicle';
 
 function RegisterVehicle(){
     return(
