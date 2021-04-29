@@ -20,7 +20,7 @@ class ShippingContent extends Component {
       visible: false,
       shippingBackup: {},
       textBuscar: "",
-      id_rutas: "",
+      id_ruta: "",
       codigo_ruta: "",
       nombre_producto: "",
       referencia: "",
@@ -58,14 +58,14 @@ class ShippingContent extends Component {
     });
   }
 
-  openModalEditar(id_rutas) {
+  openModalEditar(id_ruta) {
     this.setState({
       visible: true,
       visible_actualizar: false,
       visible_registrar:true,
     })
     //id_vehiculo = this.props.match.params.id_vehiculo;
-    const url = "http://localhost:3001/Shipping/editShipping/"+id_rutas
+    const url = "http://localhost:3001/Shipping/editShipping/"+id_ruta
     Axios.get(url)
     .then(res=>{
       if (res.data.success) {
@@ -73,7 +73,7 @@ class ShippingContent extends Component {
         console.log(data);
         this.setState({
           shippingEdit:data,
-              id_rutas:data.id_rutas,
+              id_ruta:data.id_ruta,
               codigo_ruta: data.codigo_ruta,
               nombre_producto: data.nombre_producto,
               referencia: data.referencia, 
@@ -248,13 +248,13 @@ class ShippingContent extends Component {
     })
   }
 
-  sendDelete(id_rutas)
+  sendDelete(id_ruta)
   {
     // url de backend
     const baseUrl = "http://localhost:3001/Shipping/deleteShipping"    // parameter data post
     // network
     Axios.post(baseUrl,{
-      id_rutas:id_rutas
+      id_ruta:id_ruta
     })
     .then(response =>{
       if (response.data.success) {
@@ -274,10 +274,10 @@ class ShippingContent extends Component {
   
   sendUpdate(){
     //  get parameter id
-    let id_rutas = this.state.id_rutas;
-    console.log(id_rutas);
+    let id_ruta = this.state.id_ruta;
+    console.log(id_ruta);
     // url de backend
-    const baseUrl = "http://localhost:3001/Shipping/shippingEdit/"+id_rutas
+    const baseUrl = "http://localhost:3001/Shipping/shippingEdit/"+id_ruta
     // parametros de datos post
     const datapost = {
       codigo_ruta: this.state.codigo_ruta,
@@ -311,7 +311,7 @@ class ShippingContent extends Component {
 
   render() {
     const {
-      id_rutas,
+      id_ruta,
       codigo_ruta,
       nombre_producto,
       referencia,
@@ -609,7 +609,7 @@ class ShippingContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-asignar"
                     value="Open"
-                    onClick={() => this.openModalEditar(data.id_rutas)}
+                    onClick={() => this.openModalEditar(data.id_ruta)}
                   >
                     Editar
                   </button>
@@ -620,7 +620,7 @@ class ShippingContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-eliminar"
                     value="Open"
-                    onClick={()=>this.onDelete(data.id_rutas)}
+                    onClick={()=>this.onDelete(data.id_ruta)}
                   >
                     Eliminar
                   </button>

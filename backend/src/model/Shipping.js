@@ -10,7 +10,7 @@ var nameTable = "tbl_rutas";
 
 var Envios = sequelize.define(nameTable, {
 
-    id_rutas:{
+    id_ruta:{
         type:Sequelize.INTEGER,
         primaryKey: true,
 

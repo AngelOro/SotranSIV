@@ -5,7 +5,7 @@ const Shipping = require('../model/Shipping');
 
 
 controller.getShipping = (req, res, next) => {
-  conn.query('SELECT  E.id_rutas,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
+  conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
   ' DATE_FORMAT(E.fecha_inicio,"%d %M %Y") as fecha_inicio, E.fecha_fin, E.flete, V.placa, C.nombre , '+ 
   ' CO.descripcion as ciudad_origen, CD.descripcion as ciudad_destino, ES.descripcion as estado '+
   ' FROM tbl_rutas E  INNER JOIN tbl_vehiculos V ON V.id_vehiculo = E.id_vehiculo '+
@@ -20,9 +20,9 @@ controller.getShipping = (req, res, next) => {
 
 
 controller.getVehicleShipping = (req, res, next) => {
-  conn.query(' SELECT E.id_rutas , v.placa  '+
+  conn.query(' SELECT E.id_ruta , v.placa  '+
     ' FROM sotransiv.tbl_rutas E  '+
-    ' inner join tbl_vehiculos V on V.id_vehiculo = E.id_rutas ',
+    ' inner join tbl_vehiculos V on V.id_vehiculo = E.id_ruta ',
     (err, rows) => {
       if (err) next(new Error(err));
       else res.json({ success: true, data: rows });
@@ -43,9 +43,9 @@ controller.getCityShipping = (req, res, next) => {
 
 controller.deleteShipping = async (req, res) => {
   // parameter post
-  const { id_rutas } = req.body;
+  const { id_ruta } = req.body;
   // delete sequelize
-  conn.query("UPDATE tbl_rutas set id_estado = 7 where id_rutas = " + req.body.id_rutas, (err, rows) => {
+  conn.query("UPDATE tbl_rutas set id_estado = 7 where id_ruta = " + req.body.id_ruta, (err, rows) => {
     if(err) throw err;
     else res.json({ success: true, message:"Se elimina Envio" });
   }
@@ -53,16 +53,16 @@ controller.deleteShipping = async (req, res) => {
 }
 
 controller.editShipping = async (req,res) => {
-  const { id_rutas } = req.params;
+  const { id_ruta } = req.params;
 
-  conn.query('SELECT  E.id_rutas,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
+  conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
   ' DATE_FORMAT(E.fecha_inicio,"%d %M %Y") as fecha_inicio, E.fecha_fin, E.flete, V.placa, C.nombre , '+ 
   ' CO.descripcion as ciudad_origen, CD.descripcion as ciudad_destino, ES.descripcion as estado '+
   ' FROM tbl_rutas E  INNER JOIN tbl_vehiculos V ON V.id_vehiculo = E.id_vehiculo '+
   ' INNER JOIN tbl_conductores C ON C.identificacion = E.id_conductor  '+
   '  INNER JOIN tbl_ciudades CO ON CO.id_ciudad = E.id_origen '+
   '  INNER JOIN tbl_ciudades CD ON CD.id_ciudad = E.id_destino  '+
-  '  INNER JOIN tbl_estados ES ON ES.id_estado = E.id_estado where E.id_estado = ' + req.params.id_rutas,(err, rows) =>{
+  '  INNER JOIN tbl_estados ES ON ES.id_estado = E.id_estado where E.id_estado = ' + req.params.id_ruta,(err, rows) =>{
     if (err) next(new Error(err));
     else res.json({ success: true, data: rows });
   } )
@@ -123,7 +123,7 @@ controller.insertShipping = async (req, res) => {
 
 controller.shippingEdit = async (req, res) => {
   // data
-  const {id_rutas} =req.params;
+  const {id_ruta} =req.params;
   const {
     codigo_ruta,
     nombre_producto,
@@ -155,7 +155,7 @@ controller.shippingEdit = async (req, res) => {
   
   },
   {
-    where: { id_rutas: id_rutas}
+    where: { id_ruta: id_ruta}
   })
   .then( function(data){
     return data;
