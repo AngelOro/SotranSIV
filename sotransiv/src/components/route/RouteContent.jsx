@@ -7,18 +7,18 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
 
-class ShippingContent extends Component {
+class RouteContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       error: null,
-      shippingData: [],
+      routeData: [],
       vehicleData: [],
       cityData: [],
-      shippingEdit: [],
+      routeEdit: [],
       visible: false,
-      shippingBackup: {},
+      routeBackup: {},
       textBuscar: "",
       id_ruta: "",
       codigo_ruta: "",
@@ -65,14 +65,14 @@ class ShippingContent extends Component {
       visible_registrar:true,
     })
     //id_vehiculo = this.props.match.params.id_vehiculo;
-    const url = "http://localhost:3001/Shipping/editShipping/"+id_ruta
+    const url = "http://localhost:3001/Route/editRoute/"+id_ruta
     Axios.get(url)
     .then(res=>{
       if (res.data.success) {
         const data = res.data.data[0]
         console.log(data);
         this.setState({
-          shippingEdit:data,
+          routeEdit:data,
               id_ruta:data.id_ruta,
               codigo_ruta: data.codigo_ruta,
               nombre_producto: data.nombre_producto,
@@ -99,15 +99,15 @@ class ShippingContent extends Component {
 
 
   _fetchData() {
-    Axios.get("http://localhost:3001/Shipping/")
+    Axios.get("http://localhost:3001/Route/")
       .then((res) => {
         if (res.data.success) {
           const data = res.data.data;
           console.log(data);
           this.setState({
             loading: false,
-            shippingData: data,
-            shippingBackup: data,
+            routeData: data,
+            routeBackup: data,
           });
         } else {
           alert("sorry");
@@ -121,8 +121,8 @@ class ShippingContent extends Component {
       });
   }
 
-  _fetchShippingVehicle() {
-    Axios.get("http://localhost:3001/Shipping/vehicleShipping")
+  _fetchRouteVehicle() {
+    Axios.get("http://localhost:3001/Route/vehicleRoute")
       .then((res) => {
         if (res.data.success) {
           const data = res.data.data;
@@ -146,8 +146,8 @@ class ShippingContent extends Component {
   }
 
 
-  _fetchCityShipping() {
-    Axios.get("http://localhost:3001/Shipping/cityShipping")
+  _fetchCityRoute() {
+    Axios.get("http://localhost:3001/Route/cityRoute")
       .then((res) => {
         if (res.data.success) {
           const data = res.data.data;
@@ -172,9 +172,9 @@ class ShippingContent extends Component {
 
   filter(event) {
     var text = event.target.value;
-    const data = this.state.shippingBackup;
+    const data = this.state.routeBackup;
     const newData = data.filter(function (item) {
-      const itemData = item.codigo_envio.toUpperCase();
+      const itemData = item.codigo_ruta.toUpperCase();
       const itemDataDescp = item.nombre_producto.toUpperCase();
       const campo = itemData + " " + itemDataDescp;
       const textData = text.toUpperCase();
@@ -188,8 +188,8 @@ class ShippingContent extends Component {
 
   componentDidMount() {
     this._fetchData();
-    this._fetchCityShipping();
-    this._fetchShippingVehicle();
+    this._fetchCityRoute();
+    this._fetchRouteVehicle();
   }
 
   changeHandler = (e) => {
@@ -198,7 +198,7 @@ class ShippingContent extends Component {
 
   submitHandler () {
     //const baseUrl = "https://sotransiv-app.herokuapp.com/Vehicle/newVehicle"
-    const baseUrl = "http://localhost:3001/Shipping/newShipping"
+    const baseUrl = "http://localhost:3001/Route/newRoute"
             const datapost = {
               codigo_ruta: this.state.codigo_ruta,
               nombre_producto: this.state.nombre_producto,
@@ -229,8 +229,8 @@ class ShippingContent extends Component {
 
   onDelete(id){
     Swal.fire({
-      title: 'Eliminar Envio',
-      text: '¿Está seguro de eliminar Envio?',
+      title: 'Eliminar Ruta',
+      text: '¿Está seguro de eliminar Ruta?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -241,7 +241,7 @@ class ShippingContent extends Component {
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelado',
-          'No se eliminó Envio',
+          'No se eliminó Ruta',
           'error'
         )
       }
@@ -251,7 +251,7 @@ class ShippingContent extends Component {
   sendDelete(id_ruta)
   {
     // url de backend
-    const baseUrl = "http://localhost:3001/Shipping/deleteShipping"    // parameter data post
+    const baseUrl = "http://localhost:3001/Route/deleteRoute"    // parameter data post
     // network
     Axios.post(baseUrl,{
       id_ruta:id_ruta
@@ -260,7 +260,7 @@ class ShippingContent extends Component {
       if (response.data.success) {
         Swal.fire(
           'Eliminado',
-          'El Envio fue eliminado',
+          'La Ruta fue eliminado',
           'success'
         )
         this._fetchData();
@@ -277,7 +277,7 @@ class ShippingContent extends Component {
     let id_ruta = this.state.id_ruta;
     console.log(id_ruta);
     // url de backend
-    const baseUrl = "http://localhost:3001/Shipping/shippingEdit/"+id_ruta
+    const baseUrl = "http://localhost:3001/Route/RouteEdit/"+id_ruta
     // parametros de datos post
     const datapost = {
       codigo_ruta: this.state.codigo_ruta,
@@ -322,10 +322,11 @@ class ShippingContent extends Component {
       id_vehiculo,
       ciudad_destino,
       ciudad_origen,
+      select_vehicle,
       select_conduct,
       select_ciudad_destino,
       select_ciudad_origen,
-      select_vehicle,
+      
     } = this.state;
 
     if (this.state.loading) {
@@ -342,7 +343,7 @@ class ShippingContent extends Component {
 
     return (
       <div className="container">
-        <h3 className="tittle">Envios</h3>
+        <h3 className="tittle">Rutas</h3>
         <div className="row" id="row-container">
           <div className="col-md-10">
             <div className="form-row" id="form-input">
@@ -383,33 +384,33 @@ class ShippingContent extends Component {
             <div>
               <div className="container">
                 <div clasName="row">
-                  <h3 className="title">Registar Envio</h3>
+                  <h3 className="title">Registar Ruta</h3>
 
                 </div>
                 <form>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputCodEnvio">Codigo de Envio</label>
+                      <label for="inputCodEnvio">Codigo de Ruta</label>
                       <input
                         type="text"
                         className="form-control"
                         value={this.state.codigo_ruta}
                         onChange={(value) =>
                           this.setState({
-                            codigo_envio: value.target.value,
+                            codigo_ruta: value.target.value,
                           })
                         }
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputValorEnvio">Valor Envio</label>
+                      <label for="inputValorEnvio">Flete</label>
                       <input
                         type="text"
                         className="form-control"
                         value={this.state.flete}
                         onChange={(value) =>
                           this.setState({
-                            valor_envio: value.target.value,
+                            flete: value.target.value,
                           })
                         }
                       />
@@ -580,7 +581,7 @@ class ShippingContent extends Component {
         <table className="table table-striped" id="tableShipping" >
           <thead className="head-table">
             <tr>
-              <th className="th-shipping" scope="col">Codigo Envio</th>
+              <th className="th-shipping" scope="col">Codigo Ruta</th>
               <th className="th-shipping" scope="col">Carga</th>
               <th className="th-shipping" scope="col">Flete</th>
               <th className="th-shipping" scope="col">Vehiculo Asignado</th>
@@ -592,7 +593,7 @@ class ShippingContent extends Component {
             </tr>
           </thead>
           <tbody className="body-table-shipping">
-            {this.state.shippingData.map((data) => (
+            {this.state.routeData.map((data) => (
               <tr className="tr-Shipping">
 
                 <td scope="col">{data.codigo_ruta}</td>
@@ -634,4 +635,4 @@ class ShippingContent extends Component {
     );
   }
 }
-export default ShippingContent;
+export default RouteContent;

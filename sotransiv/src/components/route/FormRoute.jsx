@@ -6,7 +6,7 @@ import Axios from "axios";
 import { link, Link } from "react-router-dom";
 
 
-class FormShipping extends Component {
+class FormRoute extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -202,4 +202,4 @@ class FormShipping extends Component {
   }
 }
 
-export default FormShipping;
+export default FormRoute;

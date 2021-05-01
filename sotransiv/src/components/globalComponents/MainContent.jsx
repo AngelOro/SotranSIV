@@ -39,8 +39,8 @@ class slide extends Component {
           <Link to="/Conduct" className="d-block text-light p-3 border-0">
             <i className="icon ion-md-people lead mr-2"></i> Conductores
           </Link>
-          <Link to="/Shipping" className="d-block text-light p-3 border-0">
-            <i className="icon ion-md-paper-plane lead mr-2"></i>Envíos
+          <Link to="/Routes" className="d-block text-light p-3 border-0">
+            <i className="icon ion-md-paper-plane lead mr-2"></i>Rutas
           </Link>
           {/* <Link to="/Report" className="d-block text-light p-3 border-0">
             <i className="icon ion-md-stats lead mr-2"></i> Reportes
