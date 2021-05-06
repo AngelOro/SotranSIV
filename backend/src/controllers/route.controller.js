@@ -1,10 +1,10 @@
 const controller = {};
 const connection = require('../../dbConnection/connection')
 const conn = connection()
-const Shipping = require('../model/Shipping');
+const Route = require('../model/Route');
 
 
-controller.getShipping = (req, res, next) => {
+controller.getRoute = (req, res, next) => {
   conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
   ' DATE_FORMAT(E.fecha_inicio,"%d %M %Y") as fecha_inicio, E.fecha_fin, E.flete, V.placa, C.nombre , '+ 
   ' CO.descripcion as ciudad_origen, CD.descripcion as ciudad_destino, ES.descripcion as estado '+
@@ -19,7 +19,7 @@ controller.getShipping = (req, res, next) => {
 }
 
 
-controller.getVehicleShipping = (req, res, next) => {
+controller.getVehicleRoute = (req, res, next) => {
   conn.query(' SELECT E.id_ruta , v.placa  '+
     ' FROM sotransiv.tbl_rutas E  '+
     ' inner join tbl_vehiculos V on V.id_vehiculo = E.id_ruta ',
@@ -31,7 +31,7 @@ controller.getVehicleShipping = (req, res, next) => {
 };
 
 
-controller.getCityShipping = (req, res, next) => {
+controller.getCityRoute = (req, res, next) => {
   conn.query(
     "SELECT id_ciudad ,descripcion FROM tbl_ciudades",
     (err, rows) => {
@@ -41,7 +41,7 @@ controller.getCityShipping = (req, res, next) => {
   );
 };
 
-controller.deleteShipping = async (req, res) => {
+controller.deleteRoute = async (req, res) => {
   // parameter post
   const { id_ruta } = req.body;
   // delete sequelize
@@ -52,7 +52,7 @@ controller.deleteShipping = async (req, res) => {
 );
 }
 
-controller.editShipping = async (req,res) => {
+controller.editRoute = async (req,res) => {
   const { id_ruta } = req.params;
 
   conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
@@ -71,7 +71,7 @@ controller.editShipping = async (req,res) => {
 
 
 
-controller.insertShipping = async (req, res) => {
+controller.insertRoute = async (req, res) => {
   // data
   const {
     codigo_ruta,
@@ -114,14 +114,14 @@ controller.insertShipping = async (req, res) => {
   // return res
   res.status(200).json({
     success: true,
-    message: "Shipping almacenado exitosamente",
+    message: "Route almacenado exitosamente",
     data: data,
   });
 };
 
 
 
-controller.shippingEdit = async (req, res) => {
+controller.routeEdit = async (req, res) => {
   // data
   const {id_ruta} =req.params;
   const {

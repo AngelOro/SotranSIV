@@ -8,7 +8,7 @@ const City = require("./City");
 var nameTable = "tbl_rutas";
 
 
-var Envios = sequelize.define(nameTable, {
+var Route = sequelize.define(nameTable, {
 
     id_ruta:{
         type:Sequelize.INTEGER,
@@ -64,4 +64,4 @@ var Envios = sequelize.define(nameTable, {
   }
 );
 
-module.exports = Envios;
+module.exports = Route;
