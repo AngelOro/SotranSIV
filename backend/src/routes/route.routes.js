@@ -8,6 +8,8 @@ router.get('/', controllerRoute.getRoute);
 router.get('/cityRoute', controllerRoute.getCityRoute);
 router.get('/vehicleRoute', controllerRoute.getVehicleRoute);
 router.get('/editRoute/:id_ruta',controllerRoute.editRoute);
+router.get('/stateRoute', controllerRoute.getStateRoute);
+router.get('/conductRoute', controllerRoute.getConductRoute);
 
 router.post('/newRoute', controllerRoute.insertRoute);
 router.post('/deleteRoute',controllerRoute.deleteRoute);

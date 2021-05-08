@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 var sequelize = require('./database');
 
-var nameTable = 'tbl_estados';
+var nameTable = 'tbl_estado_ruta';
 
-var Estados = sequelize.define(nameTable, {
+var StateRoute = sequelize.define(nameTable, {
 
-    id_estado:{
+    id_estado_ruta:{
         type:Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: false
@@ -16,4 +16,4 @@ var Estados = sequelize.define(nameTable, {
     timestamps: false,
 });
 
-module.exports = Estados;
+module.exports = StateRoute;
