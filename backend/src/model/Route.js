@@ -1,14 +1,14 @@
 const Sequelize = require("sequelize");
 var sequelize = require("./database");
 var Vehicle = require("./Vehicle");
-//var Estados = require("./Estados");
+var StateRoute = require("./StateRoute");
 var Conduct = require("./Conduct");
 const City = require("./City");
 
 var nameTable = "tbl_rutas";
 
 
-var Envios = sequelize.define(nameTable, {
+var Route = sequelize.define(nameTable, {
 
     id_ruta:{
         type:Sequelize.INTEGER,
@@ -37,11 +37,11 @@ var Envios = sequelize.define(nameTable, {
         key: "identificacion"
       },
     },
-    id_estado: {
+    id_estado_ruta: {
       type: Sequelize.INTEGER,
       reference: {
-        model: Conduct,
-        key: "id_estado",
+        model: StateRoute,
+        key: "id_estado_ruta",
       },
     },
     id_origen: {
@@ -64,4 +64,4 @@ var Envios = sequelize.define(nameTable, {
   }
 );
 
-module.exports = Envios;
+module.exports = Route;

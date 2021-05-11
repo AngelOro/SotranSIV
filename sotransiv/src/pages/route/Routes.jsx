@@ -1,18 +1,18 @@
 import React from 'react';
-import ShippingContent from '../../components/route/ShippingContent';
+import RouteContent from '../../components/route/RouteContent';
 import MainContent from '../../components/globalComponents/MainContent';
 
 
 
-function Shipping() {
+function Routes() {
     return (
         <>
             <MainContent />
-            <ShippingContent />
+            <RouteContent />
 
 
         </>
     )
 }
 
-export default Shipping;
+export default Routes;

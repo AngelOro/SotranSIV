@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 var sequelize = require("./database");
 var Marcas = require("./Marcas");
 var TipoVehiculo = require("./TipoVehiculo");
-var stateVehicle = require("./EstadoVehiculo");
+var stateVehicle = require("./StateVehicle");
 
 var nameTable = "tbl_vehiculos";
 
