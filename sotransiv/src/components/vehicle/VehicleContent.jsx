@@ -15,7 +15,7 @@ class VehicleContent extends Component {
       vehicleData: [],
       typeVehicle: [],
       marcaVehicle: [],
-      vehicleEdit:[],
+      vehicleEdit: [],
       visible: false,
       vehiculoBackup: {},
       textBuscar: "",
@@ -28,11 +28,11 @@ class VehicleContent extends Component {
       r_trailer: "",
       fecha_soat: "",
       fecha_poliza: "",
-      fecha_poliza_extra: "",
+      fecha_tecnomecanica: "",
       select_type: 0,
       select_marca: 0,
       visible_actualizar: true,
-      visible_registrar:true,
+      visible_registrar: true,
     };
   }
 
@@ -40,44 +40,46 @@ class VehicleContent extends Component {
     this.setState({
       visible: true,
       visible_actualizar: true,
-      visible_registrar:false,
+      visible_registrar: false,
     });
-    
+
   }
   openModalEditar(id_vehiculo) {
     this.setState({
       visible: true,
       visible_actualizar: false,
-      visible_registrar:true,
+      visible_registrar: true,
     })
     //id_vehiculo = this.props.match.params.id_vehiculo;
-    const url = "http://localhost:3001/Vehicle/editVehicle/"+id_vehiculo
+    const url = "http://localhost:3001/Vehicle/editVehicle/" + id_vehiculo
     Axios.get(url)
-    .then(res=>{
-      if (res.data.success) {
-        const data = res.data.data[0]
-        console.log(data);
-        this.setState({
-          vehicleEdit:data,
-          placa: data.placa,
-          matricula:data.matricula,
-          r_trailer:data.r_trailer,
-          capacidad:data.capacidad,
-          fecha_soat:data.fecha_soat,
-          fecha_poliza:data.fecha_poliza,
-          modelo: data.modelo,
-          select_marca: data.id_marca,
-          select_type: data.id_tipo,
-          id_vehiculo: data.id_vehiculo
-        })
-      }
-      else {
-        alert("Error web service")
-      }
-    })
-    .catch(error=>{
-      alert("Error server "+error)
-    })
+      .then(res => {
+        if (res.data.success) {
+          const data = res.data.data[0]
+          console.log(data);
+          this.setState({
+            vehicleEdit: data,
+            placa: data.placa,
+            matricula: data.matricula,
+            r_trailer: data.r_trailer,
+            capacidad: data.capacidad,
+            fecha_soat: data.fecha_soat,
+            fecha_poliza: data.fecha_poliza,
+            modelo: data.modelo,
+            fecha_tecnomecanica: data.fecha_tecnomecanica,
+            select_marca: data.id_marca,
+            select_type: data.id_tipo,
+            id_vehiculo: data.id_vehiculo
+          })
+          debugger
+        }
+        else {
+          alert("Error web service")
+        }
+      })
+      .catch(error => {
+        alert("Error server " + error)
+      })
   }
   closeModal() {
     this.setState({
@@ -189,6 +191,7 @@ class VehicleContent extends Component {
   submitHandler() {
     //const baseUrl = "https://sotransiv-app.herokuapp.com/Vehicle/newVehicle"
     const baseUrl = "http://localhost:3001/Vehicle/newVehicle";
+    debugger
     const datapost = {
       placa: this.state.placa,
       matricula: this.state.matricula,
@@ -197,9 +200,10 @@ class VehicleContent extends Component {
       fecha_soat: this.state.fecha_soat,
       fecha_poliza: this.state.fecha_poliza,
       modelo: this.state.modelo,
+      fecha_tecnomecanica: this.state.fecha_tecnomecanica,
       id_marca: this.state.select_marca,
       id_tipo: this.state.select_type,
-      id_estado: 1,
+      id_estado_vehiculo: 1,
       id_vehiculo: this.state.id_vehiculo,
     };
     console.log(datapost);
@@ -216,7 +220,7 @@ class VehicleContent extends Component {
       });
   }
 
-  onDelete(id){
+  onDelete(id) {
     Swal.fire({
       title: 'Eliminar Vehículo',
       text: '¿Está seguro de eliminar vehículo?',
@@ -237,62 +241,62 @@ class VehicleContent extends Component {
     })
   }
 
-  sendDelete(id_vehiculo)
-  {
+  sendDelete(id_vehiculo) {
     // url de backend
     const baseUrl = "http://localhost:3001/Vehicle/deleteVehicle"    // parameter data post
     // network
-    Axios.post(baseUrl,{
-      id_vehiculo:id_vehiculo
+    Axios.post(baseUrl, {
+      id_vehiculo: id_vehiculo
     })
-    .then(response =>{
-      if (response.data.success) {
-        Swal.fire(
-          'Eliminado',
-          'El vehículo fue eliminado',
-          'success'
-        )
-        this._fetchData();
-      }
-    })
-    .catch ( error => {
-      alert("Error 325 ")
-    })
+      .then(response => {
+        if (response.data.success) {
+          Swal.fire(
+            'Eliminado',
+            'El vehículo fue eliminado',
+            'success'
+          )
+          this._fetchData();
+        }
+      })
+      .catch(error => {
+        alert("Error 325 ")
+      })
   }
 
 
-  sendUpdate(){
+  sendUpdate() {
     //  get parameter id
     let id_vehiculo = this.state.id_vehiculo;
     console.log(id_vehiculo);
     // url de backend
-    const baseUrl = "http://localhost:3001/Vehicle/vehicleEdit/"+id_vehiculo
+    const baseUrl = "http://localhost:3001/Vehicle/vehicleEdit/" + id_vehiculo
     // parametros de datos post
     const datapost = {
-      placa : this.state.placa,
-      matricula : this.state.matricula,
-      r_trailer : this.state.r_trailer,
-      capacidad : this.state.capacidad,
-      fecha_soat  : this.state.fecha_soat,
-      fecha_poliza : this.state.fecha_poliza,
+      placa: this.state.placa,
+      matricula: this.state.matricula,
+      r_trailer: this.state.r_trailer,
+      capacidad: this.state.capacidad,
+      fecha_soat: this.state.fecha_soat,
+      fecha_poliza: this.state.fecha_poliza,
       modelo: this.state.modelo,
+      fecha_tecnomecanica: this.state.fecha_tecnomecanica,
       id_marca: this.state.select_marca,
       id_tipo: this.state.select_type,
-      id_estado: 1
+      id_estado_vehiculo: 1
     }
-
-    Axios.put(baseUrl,datapost)
-    .then(response=>{
-      if (response.data.success===true) {
-        alert(response.data.message)
-      }
-      else {
-        alert("Error")
-      }
-    }).catch(error=>{
-      alert("Error 34 "+error)
-    })
-   }
+    debugger
+    Axios.put(baseUrl, datapost)
+      .then((response) => {
+        if (response.data.success) {
+          alert(response.data.message);
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        alert("Error 34 " + error);
+      });
+  }
 
   render() {
     const {
@@ -303,6 +307,7 @@ class VehicleContent extends Component {
       fecha_soat,
       fecha_poliza,
       modelo,
+      fecha_tecnomecanica,
       select_marca,
       select_type,
     } = this.state;
@@ -361,105 +366,86 @@ class VehicleContent extends Component {
               <h3 className="form-title">Registrar Vehículo</h3>
               <form>
                 <div className="form-row">
-                  <div className="col-md-3">
-                    <div className="col-12 nopadding">
-                      <div className="profileContainer">
-                        <img
-                          src={foto}
-                          id="canvFoto"
-                          width="205"
-                          height="203"
-                          alt=""
-                          className="img-thumbnail image"
-                        />
-                      </div>
-                      <button type="file" className="btn-primary btn-register">
-                        Subir Imagen
-                      </button>
-                    </div>
+                  <div className="form-group col-md-4">
+                    <label>Placa</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputEmail4"
+                      name="placa"
+                      value={placa}
+                      onChange={this.changeHandler}
+                      required
+                    />
                   </div>
-                  <div className="col-md-4 leftSeparator">
-                    <div className="form-group">
-                      <label>Placa</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputEmail4"
-                        name="placa"
-                        value={placa}
-                        onChange={this.changeHandler}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Marca</label>
-                      <select
-                        className="form-control"
-                        name="select_marca"
-                        value={select_marca}
-                        onChange={this.changeHandler}
-                        required
-                      >
-                        <option value="0">Seleccionar</option>
-                        {this.state.marcaVehicle.map((vehicle) => (
-                          <option value={vehicle.id_marca}>
-                            {vehicle.marcaVehiculo}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>Capacidad</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="capacidad"
-                        value={capacidad}
-                        onChange={this.changeHandler}
-                        required
-                      />
-                    </div>
+                  <div className="form-group col-md-4">
+                    <label>Marca</label>
+                    <select
+                      className="form-control"
+                      name="select_marca"
+                      value={select_marca}
+                      onChange={this.changeHandler}
+                      required
+                    >
+                      <option value="0">Seleccionar</option>
+                      {this.state.marcaVehicle.map((vehicle) => (
+                        <option value={vehicle.id_marca}>
+                          {vehicle.marcaVehiculo}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label>Capacidad</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="capacidad"
+                      value={capacidad}
+                      onChange={this.changeHandler}
+                      required
+                    />
                   </div>{" "}
-                  <div className="col-md-4 leftSeparator">
-                    <div className="form-group">
-                      <label>Modelo</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputEmail4"
-                        name="modelo"
-                        value={modelo}
-                        onChange={this.changeHandler}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Tipo Vehículo</label>
-                      <select
-                        className="form-control"
-                        name="select_type"
-                        value={select_type}
-                        onChange={this.changeHandler}
-                        required
-                      >
-                        <option value="0">Seleccionar</option>
-                        {this.state.typeVehicle.map((vehicle) => (
-                          <option value={vehicle.id_tipo}>
-                            {vehicle.tipoVehiculo}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>R-Trailer</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="r_trailer"
-                        value={r_trailer}
-                        onChange={this.changeHandler}
-                      />
-                    </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-4">
+                    <label>Modelo</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputEmail4"
+                      name="modelo"
+                      value={modelo}
+                      onChange={this.changeHandler}
+                      required
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label>Tipo Vehículo</label>
+                    <select
+                      className="form-control"
+                      name="select_type"
+                      value={select_type}
+                      onChange={this.changeHandler}
+                      required
+                    >
+                      <option value="0">Seleccionar</option>
+                      {this.state.typeVehicle.map((vehicle) => (
+                        <option value={vehicle.id_tipo}>
+                          {vehicle.tipoVehiculo}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label>R-Trailer</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="r_trailer"
+                      value={r_trailer}
+                      onChange={this.changeHandler}
+                    />
                   </div>
                 </div>
                 <div className="form-row">
@@ -487,7 +473,24 @@ class VehicleContent extends Component {
                       name="fecha_poliza"
                       value={fecha_poliza}
                       onChange={this.changeHandler}
-                      
+
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      El código del terminal es obligatorio
+                    </div>
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label className="customTittleLabel">
+                      Fecha Tecnomecanica
+                    </label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="fecha_tecnomecanica"
+                      value={fecha_tecnomecanica}
+                      onChange={this.changeHandler}
+
                       required
                     />
                     <div className="invalid-feedback">
@@ -513,7 +516,7 @@ class VehicleContent extends Component {
                       className="btn-primary btn-formvehicle"
                       onClick={() => this.submitHandler()}
                       hidden={this.state.visible_registrar}
-                       
+
                     >
                       Registrar
                     </button>
@@ -522,7 +525,7 @@ class VehicleContent extends Component {
                     <button
                       type="submit"
                       className="btn-primary btn-formvehicle"
-                      onClick={()=>this.sendUpdate()}
+                      onClick={() => this.sendUpdate()}
                       hidden={this.state.visible_actualizar}
                     >
                       Actualizar
@@ -561,7 +564,7 @@ class VehicleContent extends Component {
                 <td>{character.matricula}</td>
                 <td>{character.marca}</td>
                 <td id="td-actions">
-                  
+
                   <button
                     type="button"
                     className="btn-3 btn-primary "
@@ -578,7 +581,7 @@ class VehicleContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-eliminar"
                     value="Open"
-                    onClick={()=>this.onDelete(character.id_vehiculo)}
+                    onClick={() => this.onDelete(character.id_vehiculo)}
                   >
                     Eliminar
                   </button>

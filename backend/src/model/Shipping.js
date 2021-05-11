@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 var sequelize = require("./database");
 var Vehicle = require("./Vehicle");
-var Estados = require("./Estados");
+//var Estados = require("./Estados");
 var Conduct = require("./Conduct");
 const City = require("./City");
 
@@ -40,7 +40,7 @@ var Envios = sequelize.define(nameTable, {
     id_estado: {
       type: Sequelize.INTEGER,
       reference: {
-        model: Estados,
+        model: Conduct,
         key: "id_estado",
       },
     },

@@ -3,7 +3,7 @@ const mysql = require('mysql');
 // Set database connection credentials
 const config = {
     host: 'localhost',
-    user: 'root',
+    user: 'sotransiv',
     password: '1234',
     database: 'sotransiv',
 };
