@@ -25,7 +25,7 @@ controller.getRoute = (req, res, next) => {
 
 
 controller.getVehicleRoute = (req, res, next) => {
-  conn.query('  SELECT   C.identificacion,C.id_vehiculo, V.placa  '+
+  conn.query('  SELECT  C.identificacion,C.id_vehiculo, V.placa  '+
   ' FROM tbl_conductores C  '+
   ' INNER JOIN tbl_vehiculos V ON V.id_vehiculo = C.id_vehiculo ',
     (err, rows) => {
@@ -82,14 +82,19 @@ controller.deleteRoute = async (req, res) => {
 controller.editRoute = async (req,res) => {
   const { id_ruta } = req.params;
 
-  conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad, '+
-  ' DATE_FORMAT(E.fecha_inicio,"%d %M %Y") as fecha_inicio, E.fecha_fin, E.flete, V.placa, C.nombre , '+ 
-  ' CO.descripcion as ciudad_origen, CD.descripcion as ciudad_destino, ES.descripcion as estado '+
-  ' FROM tbl_rutas E  INNER JOIN tbl_vehiculos V ON V.id_vehiculo = E.id_vehiculo '+
-  ' INNER JOIN tbl_conductores C ON C.identificacion = E.id_conductor  '+
-  '  INNER JOIN tbl_ciudades CO ON CO.id_ciudad = E.id_origen '+
-  '  INNER JOIN tbl_ciudades CD ON CD.id_ciudad = E.id_destino  '+
-  '  INNER JOIN tbl_estados ES ON ES.id_estado = E.id_estado where E.id_estado = ' + req.params.id_ruta,(err, rows) =>{
+  conn.query('SELECT  E.id_ruta,E.codigo_ruta,E.nombre_producto,E.referencia,E.cantidad,  '+
+  ' DATE_FORMAT(E.fecha_inicio,"%d %M %Y") as fecha_inicio, '+
+  ' E.fecha_fin, E.flete,  Conductores.placa,Conductores.nombre,  CO.descripcion as ciudad_origen,  '+ 
+  ' CD.descripcion as ciudad_destino, '+
+  ' ES.descripcion as estado  '+
+  ' FROM tbl_rutas E  '+
+  '      INNER JOIN   (SELECT C.id_vehiculo, V.placa , C.identificacion, C.nombre '+
+  '                 FROM tbl_conductores C  '+
+  '                 INNER JOIN tbl_vehiculos V ON V.id_vehiculo = C.id_vehiculo ) as Conductores	'+
+  '                                   ON Conductores.identificacion = E.id_conductor  '+
+  '      INNER JOIN tbl_ciudades CO ON CO.id_ciudad = E.id_origen  '+
+  '      INNER JOIN tbl_ciudades CD ON CD.id_ciudad = E.id_destino   '+
+  '      INNER JOIN tbl_estado_ruta ES ON ES.id_estado_ruta = E.id_estado_ruta  '+ req.params.id_ruta,(err, rows) =>{
     if (err) next(new Error(err));
     else res.json({ success: true, data: rows });
   } )
