@@ -21,7 +21,7 @@ class FormVehiculo extends Component {
       r_trailer: "",
       fecha_soat: "",
       fecha_poliza: "",
-      fecha_poliza_extra: "",
+      fecha_tecnomecanica: "",
     };
   }
 
@@ -69,14 +69,14 @@ class FormVehiculo extends Component {
   render() {
     const {
       placa,
-      modelo,
       marca,
       tipo_vehiculo,
       capacidad,
       r_trailer,
       fecha_soat,
       fecha_poliza,
-      fecha_poliza_extra,
+      modelo,
+      fecha_tecnomecanica
     } = this.state;
     if (this.state.loadingForm) {
       return (
@@ -227,19 +227,20 @@ class FormVehiculo extends Component {
             </div>
             <div className="form-group col-md-4">
               <label className="customTittleLabel">
-                Fecha Poliza Extracontractual
+                Fecha Tecnomecanica
               </label>
               <input
                 className="form-control"
                 type="date"
-                name="fecha_poliza_extra"
-                value={fecha_poliza_extra}
+                name="fecha_tecnomecanica"
+                value={fecha_tecnomecanica}
                 onChange={this.changeHandler}
               />
               <div className="invalid-feedback">
-                La fecha de nacimiento es obligatoria
+                La fecha de ultma tecnomecanica es obligatoria
               </div>
             </div>
+            
           </div>
           {/* <div className="form-row">
             <div className="form-group col-md-4">

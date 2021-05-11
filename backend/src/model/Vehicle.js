@@ -2,11 +2,11 @@ const Sequelize = require("sequelize");
 var sequelize = require("./database");
 var Marcas = require("./Marcas");
 var TipoVehiculo = require("./TipoVehiculo");
-var Estados = require("./StateRoute");
+var stateVehicle = require("./StateVehicle");
 
 var nameTable = "tbl_vehiculos";
 
-var Vehiculos = sequelize.define(
+var Vehicle = sequelize.define(
   nameTable,
   {
     id_vehiculo: {
@@ -37,11 +37,11 @@ var Vehiculos = sequelize.define(
         key: "id_tipo",
       },
     },
-    id_estado: {
+    id_estado_vehiculo: {
       type: Sequelize.INTEGER,
       reference: {
-        model: Estados,
-        key: "id_estado",
+        model: stateVehicle,
+        key: "id_estado_vehiculo",
       },
     },
   },
@@ -50,4 +50,4 @@ var Vehiculos = sequelize.define(
   }
 );
 
-module.exports = Vehiculos;
+module.exports = Vehicle;
