@@ -43,6 +43,7 @@ class Login extends Component {
                 if (response.data.length > 0) {
                     let respuesta = response.data[0];
                     cookies.set('id_rol', respuesta.id_rol, { path: "/" });
+                    cookies.set('descripcion', respuesta.descripcion, { path: "/" });
                     if (respuesta.id_rol == 1) {
                         alert(`Bienvenido Inicio sesion correctamente ${respuesta.id_rol}`);
                         window.location.href = "./Main";

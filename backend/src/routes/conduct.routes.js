@@ -5,6 +5,7 @@ const controllerConduct = require('../controllers/conduct.controller')
 
 router.get('/', controllerConduct.getConduct)
 router.get('/editConduct/:identificacion', controllerConduct.editConduct)
+router.get('/getVehicle', controllerConduct.getVehicle)
 
 router.post('/create',controllerConduct.create)
 router.post('/assignVehicle', controllerConduct.assignVehicle)

@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import user from "../../images/user.jpg";
 import "../../styles/Sidebar.css";
 import { link, Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function Navbar() {
-  return (   
+  return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <div className="form-row ">
+      <div className="form-row ">                
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item active">
@@ -29,7 +32,7 @@ function Navbar() {
                   className="img-fluid rounded-circle avatar mr-2"
                   alt="fotoUser"
                 />
-                Administrador
+                {cookies.get("descripcion")}
               </a>
               <div
                 className="dropdown-menu dropdown-menu-right"
