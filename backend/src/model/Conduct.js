@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 var Vehiculos = require("./Vehicle")
 var sequelize = require('./database');
+var stateConduct = require("./StateConduct");
 
 var nameTable = 'tbl_conductores';
 
@@ -25,7 +26,14 @@ var conduct = sequelize.define(nameTable, {
           model: Vehiculos,
           key: "id_vehiculo",
         },
+      },
+    id_estado_conductor:{
+      type: Sequelize.INTEGER,
+      reference:{
+        model:stateConduct, 
+        key:"id_estado_conductor"
       }
+    }  
 }, {
     timestamps: false,
 });

@@ -5,16 +5,16 @@ const AssignVehicle = require("../model/AssignVehicle");
 const conn = connection();
 
 controller.getConduct = (req, res, next) => {
-  conn.query("select * from tbl_conductores", (err, rows) => {
+  conn.query("SELECT identificacion, nombre, primer_apellido, segundo_apellido, telefono_contacto FROM sotransiv.tbl_conductores where id_estado_conductor = 1", (err, rows) => {
     if (err) next(new Error(err));
     else res.json({ success: true, data: rows });
+  });
+};
 
-    // conn.query("SELECT identificacion, nombre, primer_apellido, segundo_apellido, telefono_contacto, fecha_nacimiento, licencia_conduccion, V.placa, VA.id_vehiculo" +
-    // " FROM tbl_conductores E INNER JOIN tbl_vehiculo_asignado VA ON E.identificacion = VA.id_conductor " +
-    // " INNER JOIN tbl_vehiculos V ON VA.id_vehiculo = V.id_vehiculo ", (err, rows) => {
-    //   if (err) next(new Error(err));
-    //   else res.json({ success: true, data: rows });
-    // });
+controller.getVehicle = (req, res, next) => {
+  conn.query("SELECT id_vehiculo, placa FROM sotransiv.tbl_vehiculos where id_estado_vehiculo = 1", (err, rows) => {
+    if (err) next(new Error(err));
+    else res.json({ success: true, data: rows });
   });
 };
 
@@ -27,6 +27,11 @@ controller.create = async (req, res) => {
     telefono_contacto,
     fecha_nacimiento,
     licencia_conduccion,
+    fecha_curso_seguridad, 
+    fecha_curso_industrial, 
+    examenes_medicos, 
+    id_vehiculo, 
+    id_estado_conductor
   } = req.body;
   const data = await Conduct.create({
     identificacion: identificacion,
@@ -36,6 +41,11 @@ controller.create = async (req, res) => {
     telefono_contacto: telefono_contacto,
     fecha_nacimiento: fecha_nacimiento,
     licencia_conduccion: licencia_conduccion,
+    fecha_curso_seguridad:fecha_curso_seguridad, 
+    fecha_curso_industrial:fecha_curso_industrial, 
+    examenes_medicos: examenes_medicos, 
+    id_vehiculo:id_vehiculo, 
+    id_estado_conductor:id_estado_conductor
   });
   console
     .log(data)
@@ -102,6 +112,11 @@ controller.ConductEdit = async (req, res) => {
     telefono_contacto,
     fecha_nacimiento,
     licencia_conduccion,
+    fecha_curso_seguridad, 
+    fecha_curso_industrial, 
+    examenes_medicos, 
+    id_vehiculo, 
+    id_estado_conductor
   } = req.body;
   // Update data
   const data = await Conduct.update(
@@ -113,6 +128,11 @@ controller.ConductEdit = async (req, res) => {
       telefono_contacto: telefono_contacto,
       fecha_nacimiento: fecha_nacimiento,
       licencia_conduccion: licencia_conduccion,
+      fecha_curso_seguridad:fecha_curso_seguridad, 
+      fecha_curso_industrial:fecha_curso_industrial, 
+      examenes_medicos: examenes_medicos, 
+      id_vehiculo:id_vehiculo, 
+      id_estado_conductor:id_estado_conductor
     },
     {
       where: { identificacion: identificacion },
@@ -131,7 +151,7 @@ controller.deleteConduct = async (req, res) => {
   const { identificacion } = req.body;
 
   conn.query(
-    "delete from tbl_conductores where identificacion = " +
+    "UPDATE tbl_conductores set id_estado_conductor = 2 where identificacion =  " +
       req.body.identificacion,
     (err, rows) => {
       if (err) throw err;

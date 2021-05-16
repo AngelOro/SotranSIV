@@ -4,12 +4,12 @@ const users = require('../model/Users');
 const controller = {};
 
 controller.getUser = (req, res, next) => {
-    conn.query( 
-      "SELECT id_rol FROM tbl_usuarios where usuario = '" + req.params.usuario +"' and clave = '" + req.params.clave + "'", (err, rows) => {
-        if(err) next(new Error(err));
-        else res.json({ success: true, data: rows});
-      })
-  }
+  conn.query( 
+    "select u.id_rol, r.descripcion  from tbl_usuarios u inner join tbl_roles r on u.id_rol = r.id_rol where u.usuario ='" + req.params.usuario +"' and clave = '" + req.params.clave + "'", (err, rows) => {
+      if(err) next(new Error(err));
+      else res.json({ success: true, data: rows});
+    })
+}
 
 
   module.exports = controller;
