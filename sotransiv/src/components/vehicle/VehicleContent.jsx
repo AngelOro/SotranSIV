@@ -44,6 +44,7 @@ class VehicleContent extends Component {
     });
 
   }
+  
   openModalEditar(id_vehiculo) {
     this.setState({
       visible: true,

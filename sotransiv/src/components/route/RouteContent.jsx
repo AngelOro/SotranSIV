@@ -60,11 +60,6 @@ class RouteContent extends Component {
     });
   }
 
-  closeModal() {
-    this.setState({
-      visible: false
-    });
-  }
 
   openModalEditar(id_ruta) {
     this.setState({
@@ -81,7 +76,6 @@ class RouteContent extends Component {
           console.log(data);
           this.setState({
             routeEdit: data,
-            id_ruta: data.id_ruta,
             codigo_ruta: data.codigo_ruta,
             nombre_producto: data.nombre_producto,
             referencia: data.referencia,
@@ -93,7 +87,8 @@ class RouteContent extends Component {
             id_conductor: data.select_conductor,
             id_estado_ruta: data.select_state,
             id_origen: data.select_ciudad_origen,
-            id_destino: data.select_ciudad_destino
+            id_destino: data.select_ciudad_destino,
+            id_ruta: data.id_ruta
 
           })
         }
@@ -104,6 +99,12 @@ class RouteContent extends Component {
       .catch(error => {
         alert("Error server " + error)
       })
+  }
+
+  closeModal() {
+    this.setState({
+      visible: false
+    });
   }
 
 
@@ -380,18 +381,19 @@ class RouteContent extends Component {
       id_origen: this.state.select_ciudad_origen,
       id_destino: this.state.select_ciudad_destino
     }
+    debugger
 
     Axios.put(baseUrl, datapost)
-      .then(response => {
-        if (response.data.success === true) {
-          alert(response.data.message)
+      .then((response) => {
+        if (response.data.success) {
+          alert(response.data.message);
+        } else {
+          alert(response.data.message);
         }
-        else {
-          alert("Error")
-        }
-      }).catch(error => {
-        alert("Error 34 " + error)
       })
+      .catch((error) => {
+        alert("Error 34 " + error);
+      });
 
   }
 
@@ -485,12 +487,10 @@ class RouteContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.codigo_ruta}
-                        onChange={(value) =>
-                          this.setState({
-                            codigo_ruta: value.target.value,
-                          })
-                        }
+                        name="codigo_ruta"
+                        value={codigo_ruta}
+                        onChange={this.changeHandler}
+                        required
                       />
                     </div>
                     <div class="form-group col-md-6">
@@ -498,12 +498,10 @@ class RouteContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.flete}
-                        onChange={(value) =>
-                          this.setState({
-                            flete: value.target.value,
-                          })
-                        }
+                        name="flete"
+                        value={flete}
+                        onChange={this.changeHandler}
+                        required
                       />
                     </div>
                   </div>
@@ -513,25 +511,21 @@ class RouteContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.nombre_producto}
-                        onChange={(value) =>
-                          this.setState({
-                            nombre_producto: value.target.value,
-                          })
-                        }
+                        name="nombre_producto"
+                        value={nombre_producto}
+                        
+                        onChange={this.changeHandler}
+                        required
                       />
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputVehiculoAsignado">Vehiculo Asignado</label>
                       <select
                         className="form-control"
-                        name="select_placa"
-                        value={this.state.select_vehicle}
-                        onChange={(value) =>
-                          this.setState({
-                            select_vehicle: value.target.value,
-                          })
-                        }
+                        name="select_vehicle"
+                        value={select_vehicle}
+                        onChange={this.changeHandler}
+                        required
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.vehicleData.map((vehicle) => (
@@ -549,12 +543,11 @@ class RouteContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.referencia}
-                        onChange={(value) =>
-                          this.setState({
-                            referencia: value.target.value,
-                          })
-                        }
+                        name="referencia"
+                        value={referencia}
+                        onChange={this.changeHandler}
+                        required
+                       
                       />
                     </div>
                     <div class="form-group col-md-6">
@@ -562,12 +555,11 @@ class RouteContent extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        value={this.state.cantidad}
-                        onChange={(value) =>
-                          this.setState({
-                            cantidad: value.target.value,
-                          })
-                        }
+                        name="cantidad"
+                        value={cantidad}
+                        onChange={this.changeHandler}
+                        required
+
                       />
                     </div>
                   </div>
@@ -578,12 +570,11 @@ class RouteContent extends Component {
                       <select
                         className="form-control"
                         name="select_state"
-                        value={this.state.select_state}
-                        onChange={(value) =>
-                          this.setState({
-                            select_state: value.target.value,
-                          })
-                        }
+                       
+                        value={select_state}
+                        onChange={this.changeHandler}
+                        required
+                        
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.stateData.map((state) => (
@@ -598,13 +589,11 @@ class RouteContent extends Component {
                       <label for="inputVehiculoAsignado">Conductor Asignado</label>
                       <select
                         className="form-control"
-                        name="select_placa"
-                        value={this.state.select_conduct}
-                        onChange={(value) =>
-                          this.setState({
-                            select_conduct: value.target.value,
-                          })
-                        }
+                        name="select_conduct"
+                        value={select_conduct}
+                        onChange={this.changeHandler}
+                        required
+                       
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.conductData.map((conduct) => (
@@ -622,13 +611,13 @@ class RouteContent extends Component {
                       <label for="inputState">Ciudad Origen</label>
                       <select
                         className="form-control"
-                        name="select_origen"
-                        value={this.state.select_ciudad_origen}
-                        onChange={(value) =>
-                          this.setState({
-                            select_ciudad_origen: value.target.value,
-                          })
-                        }
+                        
+                        name="select_ciudad_origen"
+                        value={select_ciudad_origen}
+                        onChange={this.changeHandler}
+                        required
+                       
+                        
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.cityOriginData.map((cityOrigin) => (
@@ -643,13 +632,11 @@ class RouteContent extends Component {
                       <label for="inputState">Ciudad Destino</label>
                       <select
                         className="form-control"
-                        name="select_destino"
-                        value={this.state.select_ciudad_destino}
-                        onChange={(value) =>
-                          this.setState({
-                            select_ciudad_destino: value.target.value,
-                          })
-                        }
+                        
+                        name="select_ciudad_destino"
+                        value={select_ciudad_destino}
+                        onChange={this.changeHandler}
+                        required
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.cityDestinationData.map((city) => (
@@ -665,12 +652,10 @@ class RouteContent extends Component {
                       <input
                         className="form-control"
                         type="date"
-                        value={this.state.fecha_inicio}
-                        onChange={(value) =>
-                          this.setState({
-                            fecha_inicio: value.target.value,
-                          })
-                        }
+                        name="fecha_inicio"
+                        value={fecha_inicio}
+                        onChange={this.changeHandler}
+                        required
                       />
                     </div>
 
@@ -679,12 +664,10 @@ class RouteContent extends Component {
                       <input
                         className="form-control"
                         type="date"
-                        value={this.state.fecha_fin}
-                        onChange={(value) =>
-                          this.setState({
-                            fecha_fin: value.target.value,
-                          })
-                        }
+                        name="fecha_fin"
+                        value={fecha_fin}
+                        onChange={this.changeHandler}
+                        required
                       />
                     </div>
 
