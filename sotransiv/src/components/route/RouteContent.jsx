@@ -39,6 +39,7 @@ class RouteContent extends Component {
       estado: "",
       identificacion: "",
       descripcion: "",
+      nombre:"",
       select_state: 0,
       select_vehicle: 0,
       select_conduct: 0,
@@ -83,11 +84,11 @@ class RouteContent extends Component {
             fecha_inicio: data.fecha_inicio,
             fecha_fin: data.fecha_fin,
             flete: data.flete,
-            id_vehiculo: data.select_vehicle,
-            id_conductor: data.select_conductor,
-            id_estado_ruta: data.select_state,
-            id_origen: data.select_ciudad_origen,
-            id_destino: data.select_ciudad_destino,
+            select_vehicle: data.id_vehiculo,
+            select_conduct: data.identificacion,
+            select_state: data.id_estado_ruta,
+            select_ciudad_origen: data.id_ciudad_origen,
+            select_ciudad_destino: data.id_ciudad_destino,
             id_ruta: data.id_ruta
 
           })
@@ -473,7 +474,8 @@ class RouteContent extends Component {
             width="950"
             height="700"
             effect="fadeInUp"
-            onClickAway={() => this.closeModal()}>
+            onClickAway={() => this.closeModal()}
+          >
             <div>
               <div className="container">
                 <div clasName="row">
@@ -513,7 +515,7 @@ class RouteContent extends Component {
                         className="form-control"
                         name="nombre_producto"
                         value={nombre_producto}
-                        
+
                         onChange={this.changeHandler}
                         required
                       />
@@ -547,7 +549,7 @@ class RouteContent extends Component {
                         value={referencia}
                         onChange={this.changeHandler}
                         required
-                       
+
                       />
                     </div>
                     <div class="form-group col-md-6">
@@ -565,16 +567,16 @@ class RouteContent extends Component {
                   </div>
                   <div class="form-row">
 
-                  <div class="form-group col-md-6">
+                    <div class="form-group col-md-6">
                       <label for="inputVehiculoAsignado">Estado ruta</label>
                       <select
                         className="form-control"
                         name="select_state"
-                       
+
                         value={select_state}
                         onChange={this.changeHandler}
                         required
-                        
+
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.stateData.map((state) => (
@@ -583,7 +585,7 @@ class RouteContent extends Component {
                           </option>
                         ))}
                       </select>
-                    </div>    
+                    </div>
 
                     <div class="form-group col-md-6">
                       <label for="inputVehiculoAsignado">Conductor Asignado</label>
@@ -593,7 +595,7 @@ class RouteContent extends Component {
                         value={select_conduct}
                         onChange={this.changeHandler}
                         required
-                       
+
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.conductData.map((conduct) => (
@@ -611,13 +613,13 @@ class RouteContent extends Component {
                       <label for="inputState">Ciudad Origen</label>
                       <select
                         className="form-control"
-                        
+
                         name="select_ciudad_origen"
                         value={select_ciudad_origen}
                         onChange={this.changeHandler}
                         required
-                       
-                        
+
+
                       >
                         <option value="0">Seleccionar</option>
                         {this.state.cityOriginData.map((cityOrigin) => (
@@ -632,7 +634,7 @@ class RouteContent extends Component {
                       <label for="inputState">Ciudad Destino</label>
                       <select
                         className="form-control"
-                        
+
                         name="select_ciudad_destino"
                         value={select_ciudad_destino}
                         onChange={this.changeHandler}
@@ -672,24 +674,38 @@ class RouteContent extends Component {
                     </div>
 
                   </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck">
-                      </input>
-                      <label class="form-check-label" for="gridCheck">
-                        Check me out
-              </label>
+                  <div className="form-row btn-action">
+                    <div className="form-group col-md-3">
+                      <button
+                        type="submit"
+                        className="btn-primary btn-formvehicle"
+                        onClick={() => this.submitHandler()}
+                        hidden={this.state.visible_registrar}
+
+                      >
+                        Registrar
+                    </button>
+                    </div>
+                    <div className="form-group col-md-3">
+                      <button
+                        type="submit"
+                        className="btn-primary btn-formvehicle"
+                        onClick={() => this.sendUpdate()}
+                        hidden={this.state.visible_actualizar}
+                      >
+                        Actualizar
+                    </button>
+                    </div>
+                    <div className="form-group col-md-3">
+                      <button
+                        type="button"
+                        className="btn-primary btn-formvehicle"
+                        onClick={() => this.closeModal()}
+                      >
+                        Cancelar
+                    </button>
                     </div>
                   </div>
-
-                  <button
-                    type="submit"
-                    className="btn-primary btn-formvehicle"
-                    onClick={() => this.submitHandler()}
-                  >
-                    Registrar
-                    </button>
-                  <button type="submit" class="btn btn-primary" href="javascript:void(0);" onClick={() => this.closeModal()}>Cerrar</button>
                 </form>
               </div>
 
@@ -702,7 +718,7 @@ class RouteContent extends Component {
             <tr>
               <th className="th-shipping" scope="col">Codigo Ruta</th>
               <th className="th-shipping" scope="col">Carga</th>
-              <th className="th-shipping" scope="col">Flete</th>
+              <th className="th-shipping" scope="col">Nombre Conductor</th>
               <th className="th-shipping" scope="col">Vehiculo Asignado</th>
               <th className="th-shipping" scope="col">Ciudad Origen</th>
               <th className="th-shipping" scope="col">Ciudad Destino</th>
@@ -712,16 +728,16 @@ class RouteContent extends Component {
             </tr>
           </thead>
           <tbody className="body-table-shipping">
-            {this.state.routeData.map((data) => (
+            {this.state.routeData.map((character) => (
               <tr className="tr-Shipping">
 
-                <td scope="col">{data.codigo_ruta}</td>
-                <td>{data.nombre_producto}</td>
-                <td>{data.flete}</td>
-                <td>{data.placa}</td>
-                <td>{data.ciudad_origen}</td>
-                <td>{data.ciudad_destino}</td>
-                <td>{data.estado}</td>
+                <td scope="col">{character.codigo_ruta}</td>
+                <td>{character.nombre_producto}</td>
+                <td>{character.nombre}</td>
+                <td>{character.placa}</td>
+                <td>{character.ciudad_origen}</td>
+                <td>{character.ciudad_destino}</td>
+                <td>{character.estado}</td>
                 <td id="td-actions">
 
                   <button
@@ -729,7 +745,7 @@ class RouteContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-asignar"
                     value="Open"
-                    onClick={() => this.openModalEditar(data.id_ruta)}
+                    onClick={() => this.openModalEditar(character.id_ruta)}
                   >
                     Editar
                   </button>
@@ -740,7 +756,7 @@ class RouteContent extends Component {
                     className="btn-3 btn-primary "
                     id="btn-eliminar"
                     value="Open"
-                    onClick={() => this.onDelete(data.id_ruta)}
+                    onClick={() => this.onDelete(character.id_ruta)}
                   >
                     Eliminar
                   </button>
